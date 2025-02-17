@@ -1,5 +1,6 @@
 package com.kafka.experiments.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -38,7 +39,7 @@ public class Order {
     @Column(nullable = false)
     private String status = "PENDING"; // PENDING, PAID, SHIPPED, CANCELED
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "order")

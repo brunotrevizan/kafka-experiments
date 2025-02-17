@@ -26,10 +26,6 @@ public class OrderItem {
     private Integer quantity;
 
     @Column(nullable = false)
-    private Double unitPrice;
-
-    @Column(nullable = false)
     private Double total;
-
 
 }

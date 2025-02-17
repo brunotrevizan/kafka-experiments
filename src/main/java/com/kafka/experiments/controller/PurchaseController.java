@@ -22,8 +22,8 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity produce(@RequestBody OrderDTO order) {
-        purchaseProducer.sendMessage(order);
+    public ResponseEntity produce(@RequestBody String orderJson) {
+        purchaseProducer.sendMessage(orderJson);
         return ResponseEntity.ok("ok");
     }
 

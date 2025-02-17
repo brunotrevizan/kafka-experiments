@@ -13,7 +13,7 @@ public class PurchaseProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(OrderDTO order) {
-        kafkaTemplate.send("purchase-topic", order.toString());
+    public void sendMessage(String orderJson) {
+        kafkaTemplate.send("purchase-topic", orderJson);
     }
 }
