@@ -28,12 +28,12 @@ CREATE TABLE order_items (
                              order_id INT NOT NULL,
                              product_id INT NOT NULL,
                              quantity INT NOT NULL,
-                             unit_price DECIMAL(10, 2) NOT NULL,
                              total DECIMAL(10, 2) NOT NULL,
                              FOREIGN KEY (order_id) REFERENCES orders(order_id),
                              FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
+select * from orders
 
 CREATE TABLE payments (
                           payment_id SERIAL PRIMARY KEY,
@@ -44,16 +44,6 @@ CREATE TABLE payments (
                           status VARCHAR(50) DEFAULT 'PENDING',  -- PENDING, COMPLETED, FAILED
                           FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
-
-
-CREATE TABLE stock_updates (
-                               stock_update_id SERIAL PRIMARY KEY,
-                               product_id INT NOT NULL,
-                               change_quantity INT NOT NULL,  -- Quantidade comprada ou retornada
-                               update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                               FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-
 
 INSERT INTO customers (name, email, phone, address)
 VALUES ('John Doe', 'john.doe@example.com', '123456789', '123 Main St');
