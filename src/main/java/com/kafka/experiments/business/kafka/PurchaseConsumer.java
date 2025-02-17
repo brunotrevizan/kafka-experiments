@@ -1,5 +1,6 @@
 package com.kafka.experiments.business.kafka;
 
+import com.kafka.experiments.business.kafka.config.KafkaConsumerConfig;
 import com.kafka.experiments.dto.OrderDTO;
 import com.kafka.experiments.dto.OrderParser;
 import com.kafka.experiments.model.Customer;
@@ -7,6 +8,8 @@ import com.kafka.experiments.model.Order;
 import com.kafka.experiments.model.OrderItem;
 import com.kafka.experiments.service.CustomerService;
 import com.kafka.experiments.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ import java.util.Random;
 @Service
 public class PurchaseConsumer {
 
+    private static final Logger logger = LoggerFactory.getLogger(PurchaseConsumer.class);
+
+
     private OrderService orderService;
     private OrderParser orderParser;
 
@@ -30,19 +36,11 @@ public class PurchaseConsumer {
     }
 
     @KafkaListener(topics = "purchase-topic", groupId = "purchase-group")
-    public void consume(String orderJson) throws IOException {
-//        int randomInt = new Random().nextInt(2);
-        int randomInt = 1;
+    public void consume(String orderJson) {
         try {
-            System.out.println("Integer deu: " + randomInt);
-
-            if(randomInt  == 1) {
-                throw new IOException();
-            }
             orderService.createOrderFromOrderDTO(orderParser.parseOrderJson(orderJson));
-        }catch (Exception e) {
-            System.out.println(" -> Deu Erro, vai entrar em retry");
-            throw e;
+        } catch (Exception e) {
+            logger.error("Error processing order: {}", orderJson, e);
         }
     }
 }
