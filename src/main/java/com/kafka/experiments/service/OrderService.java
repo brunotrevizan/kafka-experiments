@@ -3,7 +3,6 @@ package com.kafka.experiments.service;
 import com.kafka.experiments.dto.ItemDTO;
 import com.kafka.experiments.dto.OrderDTO;
 import com.kafka.experiments.dto.OrderItemParser;
-import com.kafka.experiments.dto.OrderParser;
 import com.kafka.experiments.model.Order;
 import com.kafka.experiments.model.OrderItem;
 import com.kafka.experiments.model.Product;
@@ -12,8 +11,6 @@ import com.kafka.experiments.repository.OrderRepository;
 import com.kafka.experiments.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class OrderService {
@@ -42,7 +39,7 @@ public class OrderService {
         order.setOrderDate(orderDTO.orderDate());
         order.setStatus(orderDTO.status());
         order.setTotal(orderDTO.total());
-        order.setOrderItems(orderDTO.orderItems().stream().map((item) -> createOrderItemObject(item, order)).toList());
+        order.setOrderItems(orderDTO.orderItems().stream().map(item -> createOrderItemObject(item, order)).toList());
         return order;
     }
 

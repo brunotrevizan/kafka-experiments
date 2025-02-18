@@ -1,6 +1,6 @@
 package com.kafka.experiments.controller;
 
-import com.kafka.experiments.business.kafka.KafkaProducer;
+import com.kafka.experiments.infrastructure.kafka.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ public class ProducerController {
     }
 
     @PostMapping("/produce")
-    public ResponseEntity produce(@RequestBody String message) {
+    public ResponseEntity<String> produce(@RequestBody String message) {
         kafkaProducer.sendMessage(message);
         return ResponseEntity.ok("ok");
     }

@@ -1,8 +1,6 @@
 package com.kafka.experiments.controller;
 
-import com.kafka.experiments.business.kafka.KafkaProducer;
-import com.kafka.experiments.business.kafka.PurchaseProducer;
-import com.kafka.experiments.dto.OrderDTO;
+import com.kafka.experiments.infrastructure.kafka.producer.PurchaseProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +20,7 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity produce(@RequestBody String orderJson) {
+    public ResponseEntity<String> produce(@RequestBody String orderJson) {
         purchaseProducer.sendMessage(orderJson);
         return ResponseEntity.ok("ok");
     }

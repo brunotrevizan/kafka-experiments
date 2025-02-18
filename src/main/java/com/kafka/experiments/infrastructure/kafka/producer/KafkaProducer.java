@@ -1,4 +1,4 @@
-package com.kafka.experiments.business.kafka;
+package com.kafka.experiments.infrastructure.kafka.producer;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
